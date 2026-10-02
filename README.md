@@ -1,99 +1,82 @@
-# Jadwal Ibadah Lingkungan 📅
+# Generator Jadwal Fleksibel Multi-Kebutuhan 📅
 
-Aplikasi manajemen jadwal ibadah lingkungan yang dirancang untuk membantu pengurus lingkungan mengelola rotasi pelayanan secara cerdas, otomatis, dan profesional. Dibangun dengan fokus pada kemudahan penggunaan, estetika modern, dan fungsionalitas yang kuat.
+Aplikasi manajemen dan pembuat jadwal otomatis yang dirancang untuk berbagai kebutuhan organisasi, komunitas, ibadah lingkungan/sektor, regu piket & ronda malam, shift kerja operasional, hingga rapat & event organisasi. Dibangun dengan fokus pada fleksibilitas tinggi, kemudahan penggunaan, estetika modern, dan fungsionalitas rotasi penugasan yang cerdas.
+
+---
 
 ## ✨ Fitur Unggulan
 
-### 1. 🤖 Smart Schedule Generator
-*   **Inject Tanggal**: Hasilkan deretan tanggal ibadah mingguan secara instan berdasarkan rentang waktu yang ditentukan.
-*   **Deteksi Hari**: Cukup pilih hari (misal: "Selasa"), dan sistem akan mencari semua hari tersebut dalam periode yang Anda pilih.
+### 1. ⚡ Preset Template Siap Pakai
+Tersedia berbagai templat siap pakai yang langsung menyesuaikan nama kolom dan struktur jadwal:
+*   **Ibadah Lingkungan**: Pengkhotbah, Paragenda, Pembawa Acara, serta Tuan Rumah & Alamat.
+*   **Piket & Ronda Malam**: Komandan Pos, Petugas Utama, Petugas Pendamping, Pos/Wilayah & Area Patroli.
+*   **Shift Kerja Operasional**: Shift Pagi (08:00 - 16:00), Shift Siang (16:00 - 24:00), Shift Malam (00:00 - 08:00), Unit/Cabang & Lokasi.
+*   **Rapat & Event Organisasi**: Moderator/Ketua, Notulis/Sekretaris, PJ Logistik/Operator, Tempat/Ruang & Link Meeting.
+*   **Kustom / Bebas**: Struktur fleksibel untuk peran dan lokasi sesuai kebutuhan spesifik Anda.
 
-### 2. 👥 Pool & Rule-Based Assignment
-*   **Database Pelayan Mandiri**: Kelola daftar Pengkhotbah, Paragenda, dan Pembawa Acara secara terpisah.
-*   **Algoritma Anti-Bentrok**: Fitur pengisian otomatis (**Zap ⚡**) memastikan satu orang tidak mendapatkan tugas ganda dalam satu hari yang sama.
-*   **Manajemen Tuan Rumah Massal**: Fitur *Bulk Import* memungkinkan Anda mengimpor puluhan nama tuan rumah dan alamat sekaligus (Copy-Paste dari Excel/WA).
+### 2. 🤖 Flexible Schedule Generator
+*   **Pilih Hari (Mingguan)**: Tentukan rentang tanggal dan pilih hari-hari tertentu dalam seminggu.
+*   **Pola Bulanan**: Hasilkan jadwal berdasarkan urutan minggu dalam bulan (misalnya: Minggu ke-1 & ke-3).
+*   **Interval Harian**: Rotasi otomatis setiap N hari (misalnya: piket 2 hari sekali).
+*   **Opsi Waktu / Jam**: Sertakan jam pelaksanaan (misal: `19:00 WIB`) secara otomatis ke setiap baris jadwal.
 
-### 3. 📊 Dashboard Statistik Penugasan
-*   **Real-time Counter**: Lihat berapa kali setiap orang bertugas secara akumulatif.
-*   **Distribusi Adil**: Membantu pengurus memantau beban tugas agar terdistribusi merata di antara semua anggota.
-*   **Indikator Aktif**: Statistik diperbarui secara otomatis setiap kali ada perubahan pada tabel.
+### 3. 🎛️ Pengaturan Kolom Dinamis & Kustomisasi UI
+*   **Tambah & Hapus Kolom**: Tambahkan kolom tugas baru dengan singkatan kustom (misal: "Pemusik" dengan kode "PM").
+*   **Urutkan & Sembunyikan**: Ubah urutan kolom tugas (naik/turun) atau sembunyikan kolom yang sedang tidak digunakan.
+*   **Sertakan/Sembunyikan Bagian**: Toggle untuk menampilkan/menyembunyikan bagian Tuan Rumah/Lokasi serta Kolom Keterangan.
 
-### 4. 🏘️ Tuan Rumah & Cadangan (Reserve)
-*   **Sinkronisasi Otomatis**: Sistem mendeteksi keluarga mana yang sudah masuk jadwal dan mana yang belum.
-*   **Bagian Cadangan**: Jika daftar tuan rumah Anda lebih banyak dari jumlah slot jadwal, sisanya akan ditampilkan secara otomatis di bawah tabel sebagai "Tuan Rumah Cadangan".
+### 4. 👥 Pool & Rule-Based Assignment (Zap ⚡)
+*   **Database Pelayan Mandiri**: Kelola daftar nama petugas per masing-masing kolom peran secara independen.
+*   **Algoritma Anti-Bentrok (Zap ⚡)**: Fitur pengisian otomatis (**Zap ⚡**) merotasi nama petugas secara merata serta mencegah satu orang bertugas ganda dalam satu hari yang sama.
+*   **Manajemen Tuan Rumah / Lokasi Massal**: Fitur *Bulk Import* memungkinkan Anda mengimpor puluhan nama & lokasi sekaligus (Copy-Paste dari Excel/WA).
+*   **Deteksi Cadangan (Reserve)**: Jika daftar lokasi/tuan rumah lebih banyak dari slot jadwal, sisanya ditampilkan otomatis sebagai bagian cadangan.
 
-### 5. 🎨 UI/UX & Formatting
-*   **Dark Mode Support**: Nyaman di mata dengan dukungan penuh mode gelap dan terang.
-*   **Profesional Layout**: Nama pelayan di dalam tabel otomatis diformat menjadi **Bold Italic** untuk standar dokumen formal.
-*   **Responsive Design**: Dapat digunakan dengan baik di PC maupun Smartphone.
+### 5. 📊 Dashboard Statistik Penugasan
+*   **Real-Time Counter**: Pantau akumulasi partisipasi setiap anggota per peran dan total keseluruhan secara otomatis.
+*   **Distribusi Merata**: Membantu pengurus memantau dan membagi beban tugas secara adil.
 
-### 6. 📤 Ekspor & Cetak
-*   **Export Excel**: Unduh data lengkap dalam format `.xlsx` untuk keperluan pengarsipan digital.
-*   **Print-Ready PDF**: Tata letak yang dioptimalkan untuk dicetak langsung menjadi dokumen fisik dengan margin yang rapi dan font yang terbaca jelas.
+### 6. 🎨 UI/UX & Formatting Modern
+*   **Dark Mode Support**: Mode gelap dan terang yang nyaman di mata dengan transisi halus.
+*   **Cetak PDF / Print-Ready**: Tata letak teroptimasi untuk cetak lanskap langsung dengan tampilan bersih dan rapi.
+*   **Modal Tentang Aplikasi**: Akses informasi versi, panduan fitur, dan detail aplikasi langsung dari antarmuka.
 
-## 🚀 Teknologi yang Digunakan
+### 7. 📤 Ekspor & Penyimpanan Lokal
+*   **Export Excel (`.xlsx`)**: Unduh data lengkap dalam format spreadsheet untuk arsip digital.
+*   **LocalStorage Sync**: Data tersimpan otomatis di browser dengan penomoran versi otomatis (auto-versioning) dan penanda waktu pembaruan terakhir (*last updated*).
 
-*   **Core**: React 18 + Vite
-*   **Tipe Data**: TypeScript (Type-safe)
-*   **Styling**: Tailwind CSS 4.0
-*   **Animasi**: Framer Motion
-*   **Icons**: Lucide React
-*   **Data Handling**: XLSX (SheetJS)
-*   **Storage**: Browser LocalStorage (Data aman meski tab ditutup/refresh)
+---
 
 ## 🛠️ Panduan Penggunaan
 
-1.  **Generate Jadwal**: Tentukan rentang tanggal, pilih hari ibadah, lalu klik **Selesaikan Draft**.
-2.  **Siapkan Daftar**: Masukkan nama-nama pelayan di bagian manajemen (bawah tabel).
-3.  **Impor Tuan Rumah**: Copy daftar nama & alamat dari sumber lain, klik **Kelola Daftar Tuan Rumah** > **Bulk Import**, lalu tempel data Anda.
-4.  **Inject**: Gunakan tombol **Inject** (ikon Petir) untuk mengisi kolom yang kosong secara cerdas.
-5.  **Finalisasi**: Edit secara manual jika diperlukan (input tabel bersifat interaktif).
-6.  **Bagikan**: Klik **Cetak Jadwal** atau **Ekspor Excel**.
+1.  **Pilih Template**: Pilih preset template yang sesuai di bagian atas (Ibadah, Piket, Shift, Rapat, atau Kustom).
+2.  **Generate Jadwal**: Tentukan moda generator (Mingguan/Pola Bulanan/Interval), pilih rentang tanggal dan jam, lalu klik **Generate Jadwal**.
+3.  **Kelola Daftar Nama/Lokasi**: Masukkan nama petugas di masing-masing kolom tugas dan daftar lokasi/tuan rumah.
+4.  **Inject Otomatis (Zap ⚡)**: Klik tombol **Inject** (ikon petir ⚡) pada kolom peran atau lokasi untuk mengisi secara otomatis dengan algoritma rotasi cerdas.
+5.  **Edit & Adjust**: Edit teks atau ubah pilihan secara manual langsung pada tabel interaktif.
+6.  **Cetak atau Ekspor**: Klik **Cetak PDF** untuk mencetak/simpan sebagai PDF, atau **Ekspor Excel** untuk menyimpan file `.xlsx`.
 
-## ⚠️ Catatan Penting Mengenai Data
+---
 
-Perlu diingat bahwa aplikasi ini saat ini menyimpan data di **LocalStorage Browser**. Artinya:
-*   Data Draft Jadwal dan Daftar Tuan Rumah tersimpan di perangkat/browser masing-masing pengguna.
-*   Jika Anda membersihkan Cache/Cookie browser atau menggunakan mode Incognito, data akan hilang.
-*   **Rekomendasi**: Selalu ekspor ke Excel jika jadwal sudah final untuk cadangan fisik.
-*   *Catatan Masa Depan*: Jika Anda membutuhkan data yang tersimpan secara permanen di cloud dan bisa diakses bersama oleh beberapa orang (sinkron), aplikasi ini perlu dikoneksikan ke database seperti **Firebase (Google)**.
+## ⚠️ Catatan Mengenai Penyimpanan Data
 
-## 🚀 Panduan Instalasi & Deployment
+*   Aplikasi ini menyimpan data secara lokal pada **LocalStorage Browser** perangkat Anda.
+*   Data tersimpan aman selama cache browser tidak dibersihkan atau tidak menggunakan mode Incognito/Private.
+*   **Saran**: Lakukan **Ekspor Excel** secara berkala setelah jadwal selesai dibuat untuk cadangan.
 
-Karena ini adalah aplikasi berbasis **React (Vite)**, Anda bisa memasangnya di berbagai layanan hosting statis secara gratis atau berbayar.
+---
 
-### 1. Persiapan Lokal (Jika ingin build sendiri)
-1. Pastikan Anda memiliki [Node.js](https://nodejs.org/) terpasang.
-2. Clone/Unduh source code aplikasi ini.
-3. Buka terminal di folder project dan jalankan:
-   ```bash
-   npm install
-   ```
-4. Untuk membangun file produksi, jalankan:
-   ```bash
-   npm run build
-   ```
-5. Hasilnya akan ada di folder `/dist`. Folder inilah yang diunggah ke hosting.
+## 🚀 Teknologi yang Digunakan
 
-### 2. Pilihan Hosting
+*   **Core**: React 19 + Vite 6
+*   **Bahasa**: TypeScript (Type-safe)
+*   **Styling**: Tailwind CSS 4.0
+*   **Animasi**: Motion (Framer Motion)
+*   **Ikon**: Lucide React
+*   **Pemrosesan Excel**: XLSX (SheetJS)
+*   **Storage**: Browser LocalStorage
 
-#### A. Netlify / Vercel (Sangat Direkomendasikan)
-1. Hubungkan repository GitHub Anda ke layanan ini.
-2. Gunakan pengaturan berikut:
-   *   **Build Command**: `npm run build`
-   *   **Publish Directory**: `dist`
-3. Aplikasi akan otomatis terupdate setiap kali Anda melakukan *push* ke GitHub.
-
-#### B. Hosting Biasa (cPanel/Shared Hosting)
-1. Jalankan `npm run build` di komputer Anda.
-2. Kompres isi folder `/dist` menjadi file `.zip`.
-3. Unggah dan ekstrak file tersebut di folder `public_html` hosting Anda.
-
-#### C. GitHub Pages
-1. Pasang paket `gh-pages`: `npm install gh-pages --save-dev`.
-2. Tambahkan `"homepage": "https://username.github.io/repo-name"` di `package.json`.
-3. Jalankan `npm run deploy`.
+---
 
 ## 📄 Lisensi
 
-Dibuat dengan ❤️ untuk kemudahan pelayanan umat. Bebas digunakan dan dikembangkan.
+Dibuat dengan ❤️ untuk kemudahan pengelolaan jadwal organisasi, komunitas, dan pelayanan. Bebas digunakan dan dikembangkan.
