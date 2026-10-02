@@ -36,7 +36,9 @@ import {
   MoveUp,
   MoveDown,
   Eye,
-  EyeOff
+  EyeOff,
+  Info,
+  X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as XLSX from 'xlsx';
@@ -285,6 +287,7 @@ export default function App() {
   const [newHost, setNewHost] = useState({ name: '', address: '' });
   const [bulkText, setBulkText] = useState('');
   const [showBulkModal, setShowBulkModal] = useState(false);
+  const [showAboutModal, setShowAboutModal] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showNotification, setShowNotification] = useState<{message: string, type: 'success' | 'error'} | null>(null);
@@ -912,6 +915,18 @@ export default function App() {
             
             <div className="flex flex-wrap gap-2 justify-center items-center">
               <button
+                onClick={() => setShowAboutModal(true)}
+                className={cn(
+                  "p-2.5 border rounded-lg transition-all mr-1",
+                  darkMode
+                    ? "bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700 hover:text-slate-200"
+                    : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
+                )}
+                title="Tentang Aplikasi"
+              >
+                <Info className="w-5 h-5" />
+              </button>
+              <button
                 onClick={() => setDarkMode(!darkMode)}
                 className={cn(
                   "p-2.5 border rounded-lg transition-all mr-2",
@@ -983,6 +998,85 @@ export default function App() {
             </div>
           </div>
         </header>
+
+        {/* Modal About / Tentang Aplikasi */}
+        <AnimatePresence>
+          {showAboutModal && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className={cn(
+                  "rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden border transition-all",
+                  darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200"
+                )}
+              >
+                <div className={cn(
+                  "p-6 border-b flex justify-between items-center transition-colors shrink-0",
+                  darkMode ? "bg-slate-800/50 border-slate-800" : "bg-slate-50 border-slate-100"
+                )}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white">
+                      <Calendar className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className={cn("font-bold text-base", darkMode ? "text-slate-100" : "text-slate-800")}>Tentang Aplikasi</h3>
+                      <p className={cn("text-xs font-semibold", darkMode ? "text-slate-400" : "text-slate-500")}>Generator Jadwal Fleksibel Multi-Kebutuhan v1.1.{version}</p>
+                    </div>
+                  </div>
+                  <button onClick={() => setShowAboutModal(false)} className={cn(
+                    "p-2 rounded-lg transition-colors",
+                    darkMode ? "text-slate-500 hover:text-slate-200 hover:bg-slate-800" : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                  )}>
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <div className="p-6 space-y-6 overflow-y-auto custom-scrollbar">
+                  <div>
+                    <h4 className={cn("text-xs font-black uppercase tracking-wider mb-2", darkMode ? "text-indigo-400" : "text-indigo-600")}>
+                      Deskripsi Aplikasi
+                    </h4>
+                    <p className={cn("text-xs leading-relaxed", darkMode ? "text-slate-300" : "text-slate-600")}>
+                      Aplikasi pembuat dan pengelola jadwal cerdas yang dirancang untuk merotasi penugasan secara otomatis, adil, dan transparan. Mendukung berbagai kebutuhan seperti ibadah lingkungan, piket & ronda malam, shift kerja operasional, hingga rapat dan kegiatan organisasi.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className={cn("text-xs font-black uppercase tracking-wider mb-2", darkMode ? "text-indigo-400" : "text-indigo-600")}>
+                      Fitur Utama
+                    </h4>
+                    <ul className={cn("text-xs space-y-2 leading-relaxed list-disc list-inside", darkMode ? "text-slate-300" : "text-slate-600")}>
+                      <li><strong className="font-semibold">Preset Template Siap Pakai:</strong> Pilihan templat instan untuk Ibadah Lingkungan, Piket/Ronda, Shift Kerja, Rapat/Event, dan Kustom.</li>
+                      <li><strong className="font-semibold">Generator Fleksibel:</strong> Buat baris jadwal berdasarkan hari mingguan, pola minggu bulanan, atau interval harian.</li>
+                      <li><strong className="font-semibold">Kolom & Peran Kustom:</strong> Tambah, hapus, urutkan, dan aktifkan/sembunyikan kolom tugas sesuai kebutuhan.</li>
+                      <li><strong className="font-semibold">Auto-Fill Anti-Bentrok (Zap ⚡):</strong> Rotasi otomatis anggota tanpa terjadinya penugasan ganda pada hari yang sama.</li>
+                      <li><strong className="font-semibold">Bulk Import Lokasi:</strong> Tempel puluhan nama tuan rumah/lokasi sekaligus dari Excel atau WhatsApp.</li>
+                      <li><strong className="font-semibold">Statistik Penugasan:</strong> Pemantauan partisipasi real-time untuk pembagian tugas yang adil.</li>
+                      <li><strong className="font-semibold">Ekspor & Cetak:</strong> Dukungan penuh ekspor ke Excel (.xlsx) dan tata letak cetak PDF yang rapi.</li>
+                    </ul>
+                  </div>
+
+                  <div className={cn("p-4 rounded-xl border text-xs leading-relaxed", darkMode ? "bg-slate-950 border-slate-800 text-slate-400" : "bg-slate-50 border-slate-200 text-slate-600")}>
+                    <p className="font-bold mb-1">ℹ️ Info Penyimpanan Data</p>
+                    Data draf jadwal dan daftar anggota tersimpan aman di <code className="font-mono font-bold">LocalStorage</code> browser Anda. Selalu gunakan tombol <strong>Ekspor Excel</strong> sebagai cadangan fisik dokumen Anda.
+                  </div>
+                </div>
+                <div className={cn(
+                  "p-4 border-t flex justify-end shrink-0",
+                  darkMode ? "bg-slate-800/50 border-slate-800" : "bg-slate-50 border-slate-100"
+                )}>
+                  <button
+                    onClick={() => setShowAboutModal(false)}
+                    className="px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700 transition-all"
+                  >
+                    Tutup
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
         {/* Modal Bulk Import */}
         <AnimatePresence>
