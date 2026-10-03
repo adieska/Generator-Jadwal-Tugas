@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   Plus, 
   Trash2, 
@@ -806,28 +806,48 @@ export default function App() {
     }, 500);
   };
 
-  const filteredItems = items.filter(item => {
+  // Bolt Optimization: Memoize enabled columns to avoid filtering on every render
+  const enabledColumns = useMemo(() => columns.filter(c => c.enabled), [columns]);
+
+  // Bolt Optimization: Memoize search filtering to prevent re-filtering all items on unrelated state changes
+  const filteredItems = useMemo(() => {
+    if (!searchQuery.trim()) return items;
     const query = searchQuery.toLowerCase();
-    const inBasic = item.dayDate.toLowerCase().includes(query) ||
-      (item.time && item.time.toLowerCase().includes(query)) ||
-      item.host.toLowerCase().includes(query) ||
-      item.address.toLowerCase().includes(query) ||
-      item.notes.toLowerCase().includes(query);
-    const inRoles = Object.values(item.roles || {}).some(val => val.toLowerCase().includes(query));
-    return inBasic || inRoles;
-  });
+    return items.filter(item => {
+      const inBasic = item.dayDate.toLowerCase().includes(query) ||
+        (item.time && item.time.toLowerCase().includes(query)) ||
+        item.host.toLowerCase().includes(query) ||
+        item.address.toLowerCase().includes(query) ||
+        item.notes.toLowerCase().includes(query);
+      const inRoles = Object.values(item.roles || {}).some((val: any) => typeof val === 'string' && val.toLowerCase().includes(query));
+      return inBasic || inRoles;
+    });
+  }, [items, searchQuery]);
 
-  const getRoleDutyCount = (name: string, columnId: string) => {
-    return items.filter(item => item.roles[columnId]?.trim() === name.trim()).length;
-  };
+  // Bolt Optimization: Pre-calculate role duty counts into an O(1) lookup map (columnId -> memberName -> count)
+  // Replaces O(items) array filtering per member inside render loop with O(1) map access.
+  const roleDutyCounts = useMemo(() => {
+    const counts: Record<string, Record<string, number>> = {};
+    items.forEach(item => {
+      if (!item.roles) return;
+      Object.entries(item.roles).forEach(([colId, val]) => {
+        const trimmed = typeof val === 'string' ? val.trim() : '';
+        if (trimmed) {
+          if (!counts[colId]) counts[colId] = {};
+          counts[colId][trimmed] = (counts[colId][trimmed] || 0) + 1;
+        }
+      });
+    });
+    return counts;
+  }, [items]);
 
-  const getAllStats = () => {
+  // Bolt Optimization: Memoize statistics computation to avoid O(items * columns) re-computations on every keystroke
+  const allStats = useMemo(() => {
     const stats: Record<string, { byRole: Record<string, number>; total: number }> = {};
-    const enabledCols = columns.filter(c => c.enabled);
 
     items.forEach(item => {
-      enabledCols.forEach(col => {
-        const val = item.roles[col.id]?.trim();
+      enabledColumns.forEach(col => {
+        const val = item.roles?.[col.id]?.trim();
         if (val) {
           if (!stats[val]) {
             stats[val] = { byRole: {}, total: 0 };
@@ -839,17 +859,13 @@ export default function App() {
     });
 
     return Object.entries(stats).sort((a, b) => b[1].total - a[1].total);
-  };
+  }, [items, enabledColumns]);
 
-  const allStats = getAllStats();
-
-  const getUnassignedHosts = () => {
-    const assignedHostNames = new Set(items.map(item => item.host.trim()).filter(h => h));
+  // Bolt Optimization: Memoize unassigned hosts filter
+  const unassignedHosts = useMemo(() => {
+    const assignedHostNames = new Set(items.map(item => item.host.trim()).filter(Boolean));
     return hostPool.filter(h => !assignedHostNames.has(h.name.trim()));
-  };
-
-  const unassignedHosts = getUnassignedHosts();
-  const enabledColumns = columns.filter(c => c.enabled);
+  }, [items, hostPool]);
 
   return (
     <div className={cn(
@@ -1738,7 +1754,7 @@ export default function App() {
                         </span>
                       ) : (
                         pool.map((name) => {
-                          const count = getRoleDutyCount(name, col.id);
+                          const count = roleDutyCounts[col.id]?.[name.trim()] || 0;
                           return (
                             <div 
                               key={name}
