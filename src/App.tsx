@@ -179,11 +179,11 @@ export const DEFAULT_PRESETS: PresetTemplate[] = [
 export default function App() {
   // Title & Template Customization States
   const [scheduleTitle, setScheduleTitle] = useState<string>(() => {
-    return localStorage.getItem('ibadah_title') || DEFAULT_PRESETS[0].title;
+    return localStorage.getItem('ibadah_title') || 'Generator Jadwal Fleksibel';
   });
 
   const [scheduleSubtitle, setScheduleSubtitle] = useState<string>(() => {
-    return localStorage.getItem('ibadah_subtitle') || DEFAULT_PRESETS[0].subtitle;
+    return localStorage.getItem('ibadah_subtitle') || 'Sistem Rotasi Penugasan Multi-Kebutuhan';
   });
 
   const [hostLabel, setHostLabel] = useState<string>(() => {
