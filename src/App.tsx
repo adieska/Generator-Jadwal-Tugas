@@ -49,6 +49,16 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Security: Prevent Formula Injection (CSV/Excel Injection) when exporting user input
+function sanitizeFormulaInput(val: string): string {
+  if (!val || typeof val !== 'string') return val;
+  const trimmed = val.trim();
+  if (/^[=+\-@\t\r]/.test(trimmed)) {
+    return `'${val}`;
+  }
+  return val;
+}
+
 export interface ColumnConfig {
   id: string;
   label: string;
@@ -767,16 +777,16 @@ export default function App() {
       };
 
       if (showHostSection) {
-        row[hostLabel] = item.host;
-        row[addressLabel] = item.address;
+        row[hostLabel] = sanitizeFormulaInput(item.host);
+        row[addressLabel] = sanitizeFormulaInput(item.address);
       }
 
       enabledCols.forEach(col => {
-        row[col.label] = item.roles[col.id] || '';
+        row[col.label] = sanitizeFormulaInput(item.roles[col.id] || '');
       });
 
       if (showKeterangan) {
-        row['Keterangan'] = item.notes;
+        row['Keterangan'] = sanitizeFormulaInput(item.notes);
       }
 
       return row;
