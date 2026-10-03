@@ -932,8 +932,9 @@ export default function App() {
             <div className="flex flex-wrap gap-2 justify-center items-center">
               <button
                 onClick={() => setShowAboutModal(true)}
+                aria-label="Tentang Aplikasi"
                 className={cn(
-                  "p-2.5 border rounded-lg transition-all mr-1",
+                  "p-2.5 border rounded-lg transition-all mr-1 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none",
                   darkMode
                     ? "bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700 hover:text-slate-200"
                     : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
@@ -944,8 +945,9 @@ export default function App() {
               </button>
               <button
                 onClick={() => setDarkMode(!darkMode)}
+                aria-label={darkMode ? "Aktifkan Mode Terang" : "Aktifkan Mode Gelap"}
                 className={cn(
-                  "p-2.5 border rounded-lg transition-all mr-2",
+                  "p-2.5 border rounded-lg transition-all mr-2 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none",
                   darkMode 
                     ? "bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700" 
                     : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
@@ -1002,8 +1004,9 @@ export default function App() {
               {items.length > 0 && (
                 <button
                   onClick={handleClearAll}
+                  aria-label="Hapus semua jadwal"
                   className={cn(
-                    "p-2.5 rounded-lg transition-all",
+                    "p-2.5 rounded-lg transition-all focus-visible:ring-2 focus-visible:ring-red-500 outline-none",
                     darkMode ? "text-slate-500 hover:text-red-500 hover:bg-red-900/20" : "text-slate-400 hover:text-red-500 hover:bg-red-50"
                   )}
                   title="Hapus Semua"
@@ -1041,10 +1044,14 @@ export default function App() {
                       <p className={cn("text-xs font-semibold", darkMode ? "text-slate-400" : "text-slate-500")}>Generator Jadwal Fleksibel Multi-Kebutuhan v1.1.{version}</p>
                     </div>
                   </div>
-                  <button onClick={() => setShowAboutModal(false)} className={cn(
-                    "p-2 rounded-lg transition-colors",
-                    darkMode ? "text-slate-500 hover:text-slate-200 hover:bg-slate-800" : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
-                  )}>
+                  <button
+                    onClick={() => setShowAboutModal(false)}
+                    aria-label="Tutup modal tentang aplikasi"
+                    className={cn(
+                      "p-2 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none",
+                      darkMode ? "text-slate-500 hover:text-slate-200 hover:bg-slate-800" : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                    )}
+                  >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
@@ -1112,11 +1119,15 @@ export default function App() {
                   darkMode ? "bg-slate-800/50 border-slate-800" : "bg-slate-50 border-slate-100"
                 )}>
                   <h3 className={cn("font-bold", darkMode ? "text-slate-100" : "text-slate-800")}>Bulk Import {hostLabel} & {addressLabel}</h3>
-                  <button onClick={() => setShowBulkModal(false)} className={cn(
-                    "transition-colors",
-                    darkMode ? "text-slate-500 hover:text-slate-200" : "text-slate-400 hover:text-slate-600"
-                  )}>
-                    <Trash2 className="w-5 h-5" />
+                  <button
+                    onClick={() => setShowBulkModal(false)}
+                    aria-label="Tutup modal bulk import"
+                    className={cn(
+                      "transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 rounded p-1 outline-none",
+                      darkMode ? "text-slate-500 hover:text-slate-200" : "text-slate-400 hover:text-slate-600"
+                    )}
+                  >
+                    <X className="w-5 h-5" />
                   </button>
                 </div>
                 <div className="p-6 space-y-4">
@@ -1465,7 +1476,8 @@ export default function App() {
                     <button
                       onClick={() => handleMoveColumn(idx, 'up')}
                       disabled={idx === 0}
-                      className={cn("p-1.5 rounded-lg border transition-all disabled:opacity-30", darkMode ? "bg-slate-900 border-slate-800 text-slate-400" : "bg-white border-slate-200 text-slate-600")}
+                      aria-label={`Naikkan urutan kolom ${col.label}`}
+                      className={cn("p-1.5 rounded-lg border transition-all disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none", darkMode ? "bg-slate-900 border-slate-800 text-slate-400" : "bg-white border-slate-200 text-slate-600")}
                       title="Naikkan Urutan"
                     >
                       <MoveUp className="w-3.5 h-3.5" />
@@ -1474,7 +1486,8 @@ export default function App() {
                     <button
                       onClick={() => handleMoveColumn(idx, 'down')}
                       disabled={idx === columns.length - 1}
-                      className={cn("p-1.5 rounded-lg border transition-all disabled:opacity-30", darkMode ? "bg-slate-900 border-slate-800 text-slate-400" : "bg-white border-slate-200 text-slate-600")}
+                      aria-label={`Turunkan urutan kolom ${col.label}`}
+                      className={cn("p-1.5 rounded-lg border transition-all disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none", darkMode ? "bg-slate-900 border-slate-800 text-slate-400" : "bg-white border-slate-200 text-slate-600")}
                       title="Turunkan Urutan"
                     >
                       <MoveDown className="w-3.5 h-3.5" />
@@ -1483,7 +1496,8 @@ export default function App() {
                     {col.isRemovable !== false && (
                       <button
                         onClick={() => handleDeleteColumn(col.id)}
-                        className={cn("p-1.5 rounded-lg transition-all text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20")}
+                        aria-label={`Hapus kolom ${col.label}`}
+                        className={cn("p-1.5 rounded-lg transition-all text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 focus-visible:ring-2 focus-visible:ring-red-500 outline-none")}
                         title="Hapus Kolom"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -1629,7 +1643,8 @@ export default function App() {
                           </div>
                           <button 
                             onClick={() => handleDeleteHost(idx)}
-                            className={cn("transition-colors opacity-0 group-hover:opacity-100", darkMode ? "text-slate-800 hover:text-red-500" : "text-slate-200 hover:text-red-500")}
+                            aria-label={`Hapus ${host.name} dari daftar ${hostLabel}`}
+                            className={cn("transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 focus-visible:ring-2 focus-visible:ring-red-500 outline-none rounded p-0.5", darkMode ? "text-slate-500 hover:text-red-500" : "text-slate-400 hover:text-red-500")}
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -1723,7 +1738,8 @@ export default function App() {
                       />
                       <button
                         onClick={() => handleAddRoleMember(col.id, inputValue)}
-                        className={cn("p-2.5 rounded-xl transition-all", darkMode ? "bg-indigo-900/20 text-indigo-400 hover:bg-indigo-900/30" : "bg-indigo-50 text-indigo-600 hover:bg-indigo-100")}
+                        aria-label={`Tambah petugas ${col.label}`}
+                        className={cn("p-2.5 rounded-xl transition-all focus-visible:ring-2 focus-visible:ring-indigo-500 outline-none", darkMode ? "bg-indigo-900/20 text-indigo-400 hover:bg-indigo-900/30" : "bg-indigo-50 text-indigo-600 hover:bg-indigo-100")}
                       >
                         <Plus className="w-5 h-5" />
                       </button>
@@ -1771,7 +1787,8 @@ export default function App() {
                               )}
                               <button 
                                 onClick={() => handleDeleteRoleMember(col.id, name)}
-                                className={cn("transition-colors", darkMode ? "text-slate-600 hover:text-red-500" : "text-slate-400 hover:text-red-500")}
+                                aria-label={`Hapus ${name} dari daftar ${col.label}`}
+                                className={cn("transition-colors focus-visible:ring-2 focus-visible:ring-red-500 outline-none rounded p-0.5", darkMode ? "text-slate-600 hover:text-red-500" : "text-slate-400 hover:text-red-500")}
                               >
                                 <Trash2 className="w-3 h-3" />
                               </button>
@@ -2040,9 +2057,10 @@ export default function App() {
                           <td className="py-2 px-4 print:hidden text-center">
                             <button
                               onClick={() => handleDelete(item.id)}
+                              aria-label={`Hapus jadwal ${item.dayDate || `baris ${index + 1}`}`}
                               className={cn(
-                                "p-2 rounded-lg transition-all opacity-0 group-hover:opacity-100",
-                                darkMode ? "text-slate-700 hover:text-red-500 hover:bg-red-950/20" : "text-slate-300 hover:text-red-500 hover:bg-red-50"
+                                "p-2 rounded-lg transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 focus-visible:ring-2 focus-visible:ring-red-500 outline-none",
+                                darkMode ? "text-slate-500 hover:text-red-500 hover:bg-red-950/20" : "text-slate-400 hover:text-red-500 hover:bg-red-50"
                               )}
                             >
                               <Trash2 className="w-4 h-4" />
